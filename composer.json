@@ -1,6 +1,6 @@
 {
     "name": "teddy/imgtodataurl",
-    "description": "Converts images in .css file to DataUrl",
+    "description": "Converts images in .css to DataUrl",
     "require-dev": {
         "nette/tester": "~1.4@dev"
     },
