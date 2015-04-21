@@ -3,7 +3,7 @@
 use Tester\Assert;
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../src/classes/ImgToDataUrl.php';
+require __DIR__ . '/../src/ImgToDataUrl/ImgToDataUrl.php';
 
 Tester\Environment::setup();
 

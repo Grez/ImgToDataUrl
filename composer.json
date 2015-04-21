@@ -14,6 +14,6 @@
     "minimum-stability": "dev",
     "require": {},
     "autoload": {
-      "psr-4": {"Teddy\\": "src/"}
+      "classmap": ["src/"]
     }
 }
