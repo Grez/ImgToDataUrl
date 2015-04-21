@@ -1,0 +1,19 @@
+{
+    "name": "teddy/imgtodataurl",
+    "description": "Converts images in .css file to DataUrl",
+    "require-dev": {
+        "nette/tester": "~1.4@dev"
+    },
+    "license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+    "authors": [
+        {
+            "name": "Tom Bartoň",
+            "email": "grez.cz@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+      "psr-4": {"Acme\\": "src/"}
+    }
+}
