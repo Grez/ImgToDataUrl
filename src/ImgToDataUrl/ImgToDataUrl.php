@@ -68,7 +68,6 @@ class ImgToDataUrl
      */
     public function convert()
     {
-        echo '<pre>';
         $matches = array();
         preg_match_all("/url\((\"|'|)?((.*\.(png|gif|jpg))(\"|'|))\)/Ui", $this->css, $matches);
 
