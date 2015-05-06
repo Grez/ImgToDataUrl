@@ -1,8 +1,8 @@
 {
     "name": "teddy/imgtodataurl",
-    "description": "Converts images in .css to DataUrl",
+    "description": "Converts images in CSS to DataUrl",
     "require-dev": {
-        "nette/tester": "~1.4@dev"
+        "nette/tester": "~1.4"
     },
     "license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
     "authors": [

@@ -1,6 +1,0 @@
-div {width: 50px; height: 50px;}
-.test1 {background: url(/images/test1.png) no-repeat 50% 100%}
-.test2 {background: url("/images/test2.gif") no-repeat 50% 100%}
-.test3 {background: url(../images/test3.jpg)}
-.test4 {background: url('/images/test4.jpg')}
-.test5 {background: url('http://google.com/google.jpg')}

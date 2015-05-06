@@ -7,15 +7,58 @@ require __DIR__ . '/../src/ImgToDataUrl/ImgToDataUrl.php';
 
 Tester\Environment::setup();
 
-$file = new \SplFileInfo(__DIR__ . '/css/test.css');
-$imgToDataUrl = new Teddy\ImgToDataUrl($file, __DIR__);
+class Tests extends Tester\TestCase
+{
 
-$expected = "div {width: 50px; height: 50px;}
-.test1 {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUIwRTRCQ0JENTIxMTFFNEFFRDNCQ0E2MzBBMkExQzkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUIwRTRCQ0NENTIxMTFFNEFFRDNCQ0E2MzBBMkExQzkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QjBFNEJDOUQ1MjExMUU0QUVEM0JDQTYzMEEyQTFDOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QjBFNEJDQUQ1MjExMUU0QUVEM0JDQTYzMEEyQTFDOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pq3WNjIAAAN/SURBVHjazJlbSBRhFMfPzOxuGmppeQlBMRQfShLsIgQhEj0U2QXFCHxMyRd7F4zEJKINI/PBHnqIbmxpCRYERUZBCEZ0MaJs0RI0U6PWbNZ1t3O2s8vqmvvNN+vqgT97mW/O9/tu5zvzjTJlPwqSloWqRBWhclGFKI2vzaJeoZyoXtQt1JBMJYpBwBRUHeoQqsBgXW9QnagLqAnRm1TBcgmoetQgqkECDvieBvZRzz6jAliO+ohqEnUq0Ngm9lluBpDmUwvKgcqA6FsG+24JmbvCgPGoDp5vS211XFe8KCC15iaqDGJnZVynJgJojzFcKKQ9EmBljIZ1seGu/B8gxbg2WH5rY5YwwFOhF2RMTd6AoV81C5jCLHMAM1HVZj3b9hwDS0FJNHqxmpmCgMfJvxmPWu5WUDPzwVp8GMAaZ7qtzOQHpKVdZcqdZgHbrn97upKQDNaivdHoRWLSVM5Gssx4smwuAWVtevC3dds+P6hJI6YiAiw15QaH07qzIvy/HQej0YulFs7jBLvKBmp6Dqip2aCmZQe/L1h0y27Q8ovB+20Q5QQffY6hxoeNABZaRFMnGrK4qmZQ4pPEk824BNCyNvkVMM/bJ+B+eFk4RVNFMxWfaxJ0RzP49N/S4zU78BLcj64YynhUIzme9/sX0O+cwW5wG4bzfn0PevdFpPQYyh0Nh33vyADod88Zqsg76gT93nmphhGgy/BQDb0D/cElobK+X+Ogd5yVnRouAhyRudM3OSpW7o8LfNM/ZaftCAH2Sz0OrkkVK5eUCiasnwD75ADTxMqtWu0PN5LWR4A9UqnVvB6kuTbz9AZ4Xj8OW0BK4jpZwB4LP/kPGd2PlcT1wdDj6bsPnv5nSOn1/zfz3AHW7ftBoz2aepAaMzZoFI6Yei18THGVH6bFF8nUDwwddn/wDbuGi8Ldcw2UF53+LU+xSaVf14ktcPRByeFnszlhFI0C5kbUcCBQ0w7eDivH2plpzjPJSSOHOktoE8wS9tBEF2pXAGBtaEfN34vpHK91GeFamWHRk4UTqK5lgOviuiMefVDYOYLqjiFcN9c5K3q6NY06EKOV3c51TYueboX2ZA2qQjbjiZSpsO+ahXpOBDBgt1F5vPRdUQBzsa889h0xYRV12sjRvVEyRfuAOh3iQ6ixionXEDkQ/hoi1Og1xCdO5yh0OGUq+SvAAGFK66khbr/zAAAAAElFTkSuQmCC) no-repeat 50% 100%}
-.test2 {background: url(\"/images/test2.gif\") no-repeat 50% 100%}
-.test3 {background: url(../images/test3.jpg)}
-.test4 {background: url('/images/test4.jpg')}
-.test5 {background: url('http://google.com/google.jpg')}
+    /**
+     * Image from WWW_DIR && quotes
+     */
+    public function testOne()
+    {
+        $expected = ".test1 {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADISURBVGhD7dmxDcIwEIXhZ2aBJcgEYZBQwiikDIOECWAEmmSXw5GupfNZL9b7pCjydb8sK5GcLEMDDv7ePYWwUQgbhbBRCBuFsFEIG4WwUQibwJAVY5eQUkI3rj6LExPyuuaAE+4fX1dQOMR34fIEzg8s8+DzeIVDFnzzLgyzwd43HH1aQ+GQHpMZpt6XFQUe9roUwkYhbBTCppkQbNcK5cyWf0q2a4r/T/7sR2hmR3TRw0YhbBTCRiFsFMJGIWwUwkYhbBoJAX7xb8uu6HXd0wAAAABJRU5ErkJggg==) no-repeat 50% 100%}
+.test2 {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADISURBVGhD7dmxDcIwEIXhZ2aBJcgEYZBQwiikDIOECWAEmmSXw5GupfNZL9b7pCjydb8sK5GcLEMDDv7ePYWwUQgbhbBRCBuFsFEIG4WwUQibwJAVY5eQUkI3rj6LExPyuuaAE+4fX1dQOMR34fIEzg8s8+DzeIVDFnzzLgyzwd43HH1aQ+GQHpMZpt6XFQUe9roUwkYhbBTCppkQbNcK5cyWf0q2a4r/T/7sR2hmR3TRw0YhbBTCRiFsFMJGIWwUwkYhbBoJAX7xb8uu6HXd0wAAAABJRU5ErkJggg==) no-repeat 50% 100%}
+.test3 {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADISURBVGhD7dmxDcIwEIXhZ2aBJcgEYZBQwiikDIOECWAEmmSXw5GupfNZL9b7pCjydb8sK5GcLEMDDv7ePYWwUQgbhbBRCBuFsFEIG4WwUQibwJAVY5eQUkI3rj6LExPyuuaAE+4fX1dQOMR34fIEzg8s8+DzeIVDFnzzLgyzwd43HH1aQ+GQHpMZpt6XFQUe9roUwkYhbBTCppkQbNcK5cyWf0q2a4r/T/7sR2hmR3TRw0YhbBTCRiFsFMJGIWwUwkYhbBoJAX7xb8uu6HXd0wAAAABJRU5ErkJggg==) no-repeat 50% 100%}
 ";
 
-Assert::same($expected, $imgToDataUrl->convert());
+        $file = new \SplFileInfo(__DIR__ . '/css/test1.css');
+        $imgToDataUrl = new Teddy\ImgToDataUrl(__DIR__);
+        $imgToDataUrl->setCssFromFile($file);
+        $actual = $imgToDataUrl->convert();
+        Assert::same($expected, $actual);
+
+        $imgToDataUrl = new Teddy\ImgToDataUrl(__DIR__);
+        $imgToDataUrl->setCss(file_get_contents($file));
+        $actual = $imgToDataUrl->convert();
+        Assert::same($expected, $actual);
+    }
+
+    /**
+     * Image in relative path (when we know where to look we'll find it, otherwise... nope)
+     */
+    public function testTwo()
+    {
+        $file = new \SplFileInfo(__DIR__ . '/css/test2.css');
+
+        $expected = ".test1 {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAD1SURBVGhD7dnBDYIwGMXxr85iPDlB3cBByjp4dRBYxJOwS20LGC+SmPSRJ3m/pLEJXv7WL0h0MbEdOMyvf08hbBTCRiFsFMJGIWwUwkYhbBTCRiFr+saZc5/rYrdxvoiSn9mr6UJ+/v+6Qje/DwBwIt7aIeYP6L26MF25Xxvrp219uQavi6klnYqPKRJCw/6T8WmPsjnb6Vg29c0nAzW0vgy7R32vEnzI0EZf5iOkScEBh+CHfAEMWSKw948FKGTbiAwQsn1EVjfkPdjbRmRVQ9JPkRKxunwbEXO/mzu7/rFioxA2CmGjEDYKYaMQNgphoxAuZi9I1H7bRee8bQAAAABJRU5ErkJggg==) no-repeat 50% 100%}
+.test2 {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAD1SURBVGhD7dnBDYIwGMXxr85iPDlB3cBByjp4dRBYxJOwS20LGC+SmPSRJ3m/pLEJXv7WL0h0MbEdOMyvf08hbBTCRiFsFMJGIWwUwkYhbBTCRiFr+saZc5/rYrdxvoiSn9mr6UJ+/v+6Qje/DwBwIt7aIeYP6L26MF25Xxvrp219uQavi6klnYqPKRJCw/6T8WmPsjnb6Vg29c0nAzW0vgy7R32vEnzI0EZf5iOkScEBh+CHfAEMWSKw948FKGTbiAwQsn1EVjfkPdjbRmRVQ9JPkRKxunwbEXO/mzu7/rFioxA2CmGjEDYKYaMQNgphoxAuZi9I1H7bRee8bQAAAABJRU5ErkJggg==) no-repeat 50% 100%}
+";
+        $imgToDataUrl = new Teddy\ImgToDataUrl(__DIR__);
+        $imgToDataUrl->setCssFromFile($file);
+        $actual = $imgToDataUrl->convert();
+        Assert::same($expected, $actual);
+
+        $file = new \SplFileInfo(__DIR__ . '/css/test2.css');
+        $imgToDataUrl = new Teddy\ImgToDataUrl(__DIR__);
+        $imgToDataUrl->setCss(file_get_contents($file));
+        $actual = $imgToDataUrl->convert();
+        $expected = ".test1 {background: url(./images/02.png) no-repeat 50% 100%}
+.test2 {background: url(images/02.png) no-repeat 50% 100%}
+";
+
+        Assert::same($expected, $actual);
+    }
+
+}
+
+$tests = new Tests();
+$tests->run();
